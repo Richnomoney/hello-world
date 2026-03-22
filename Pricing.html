@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TechAid Seniors – Pricing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #e8e8e8;
+      display: flex;
+      justify-content: center;
+      padding: 30px 20px;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .sheet {
+      width: 8.5in;
+      background: #fff;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER */
+    .header {
+      background: #1b3d6e;
+      padding: 28px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      right: -40px; top: -40px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(200,133,26,0.15);
+    }
+    .brand { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: #fff; position: relative; z-index: 1; }
+    .brand em { color: #c8851a; font-style: normal; }
+    .header-sub { color: rgba(255,255,255,0.65); font-size: .88rem; margin-top: 3px; position: relative; z-index: 1; }
+    .header-right { text-align: right; position: relative; z-index: 1; }
+    .header-right p { color: rgba(255,255,255,0.7); font-size: .88rem; }
+    .header-right strong { color: #c8851a; font-size: 1rem; }
+
+    /* INTRO BAND */
+    .intro {
+      background: #c8851a;
+      padding: 12px 48px;
+      font-size: .97rem;
+      color: #fff;
+      font-weight: 500;
+      text-align: center;
+    }
+    .intro strong { font-weight: 700; }
+
+    /* BODY */
+    .body { padding: 36px 48px; display: flex; flex-direction: column; gap: 32px; }
+
+    /* CATEGORY LABEL */
+    .cat-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .cat-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .cat-icon.fix { background: #deeef9; }
+    .cat-icon.setup { background: #fef3e2; }
+    .cat-icon.keep { background: #e8f5e9; }
+    .cat-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: #1b3d6e; }
+    .cat-desc { font-size: .88rem; color: #5f6b7a; margin-top: 2px; }
+
+    /* SERVICE GRID */
+    .svc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    .svc-item {
+      background: #faf7f2;
+      border: 1px solid #dde3ea;
+      border-radius: 8px;
+      padding: 13px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .svc-item span { font-size: .92rem; color: #1e1e1e; line-height: 1.3; }
+    .svc-item strong { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #1b3d6e; white-space: nowrap; }
+
+    /* DIVIDER */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: #5f6b7a;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #dde3ea; }
+
+    /* MONTHLY PLANS */
+    .plans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .plan {
+      border: 2px solid #dde3ea;
+      border-radius: 12px;
+      padding: 24px 22px;
+      background: #faf7f2;
+      position: relative;
+    }
+    .plan.featured { border-color: #c8851a; background: #fff; }
+    .plan-badge {
+      position: absolute;
+      top: -12px; left: 50%;
+      transform: translateX(-50%);
+      background: #c8851a;
+      color: #fff;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .plan h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #1b3d6e; margin-bottom: 4px; }
+    .plan-price { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 700; color: #1b3d6e; margin: 8px 0 4px; }
+    .plan-price span { font-size: .9rem; font-weight: 400; color: #5f6b7a; }
+    .plan-desc { font-size: .85rem; color: #5f6b7a; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #e8e3db; }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .plan-features li { font-size: .88rem; color: #1e1e1e; display: flex; gap: 8px; align-items: flex-start; line-height: 1.4; }
+    .plan-features li::before { content: '✓'; color: #c8851a; font-weight: 700; flex-shrink: 0; }
+
+    /* FOOTER */
+    .footer {
+      background: #1b3d6e;
+      padding: 22px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .footer-left p { color: rgba(255,255,255,0.7); font-size: .85rem; margin-bottom: 3px; }
+    .footer-phone { font-family: 'Playfair Display', serif; font-size: 1.7rem; color: #c8851a; font-weight: 700; }
+    .footer-right { text-align: right; }
+    .footer-right p { color: rgba(255,255,255,0.7); font-size: .85rem; margin-bottom: 3px; }
+    .footer-right strong { color: #fff; }
+    .footer-web { color: #c8851a; font-weight: 700; font-size: .92rem; }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .sheet { box-shadow: none; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="brand">TechAid<em>Seniors</em></div>
+      <div class="header-sub">Patient, Friendly Tech Help — Greater Delaware &amp; Maryland Area</div>
+    </div>
+    <div class="header-right">
+      <p>techaidseniors.com</p>
+      <strong>(443) 256-6630</strong>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <strong>All prices are flat rate.</strong> You always know the cost before we start — no hourly meters, no surprise charges. Ever.
+  </div>
+
+  <div class="body">
+
+    <!-- CATEGORY 1: FIX IT -->
+    <div>
+      <div class="cat-header">
+        <div class="cat-icon fix">🔧</div>
+        <div>
+          <div class="cat-title">Fix It</div>
+          <div class="cat-desc">Something isn't working? We come to you and fix it — same day when possible.</div>
+        </div>
+      </div>
+      <div class="svc-grid">
+        <div class="svc-item"><span>Wi-Fi &amp; Internet Fix</span><strong>$75</strong></div>
+        <div class="svc-item"><span>Smartphone Help</span><strong>$75</strong></div>
+        <div class="svc-item"><span>Computer Tune-Up</span><strong>$85</strong></div>
+        <div class="svc-item"><span>TV &amp; Streaming Fix</span><strong>$65</strong></div>
+        <div class="svc-item"><span>Printer Setup &amp; Fix</span><strong>$65</strong></div>
+        <div class="svc-item"><span>Email Inbox Cleanup</span><strong>$65</strong></div>
+        <div class="svc-item"><span>Video Call Setup</span><strong>$55</strong></div>
+        <div class="svc-item"><span>Scam Protection Setup</span><strong>$65</strong></div>
+        <div class="svc-item"><span>Password &amp; Account Help</span><strong>$55</strong></div>
+      </div>
+    </div>
+
+    <div class="divider">Set up something new</div>
+
+    <!-- CATEGORY 2: SET IT UP -->
+    <div>
+      <div class="cat-header">
+        <div class="cat-icon setup">✨</div>
+        <div>
+          <div class="cat-title">Set It Up</div>
+          <div class="cat-desc">Need something new set up the right way? We handle it start to finish.</div>
+        </div>
+      </div>
+      <div class="svc-grid">
+        <div class="svc-item"><span>New Device Setup</span><strong>$75</strong></div>
+        <div class="svc-item"><span>Digital Photo Organization</span><strong>$75–$150</strong></div>
+        <div class="svc-item"><span>Legacy Digital Binder</span><strong>$125</strong></div>
+        <div class="svc-item"><span>Social Media Setup</span><strong>$65</strong></div>
+        <div class="svc-item"><span>Tablet Home Hub Setup</span><strong>$85</strong></div>
+        <div class="svc-item"><span>Cloud Backup Setup</span><strong>$65</strong></div>
+      </div>
+    </div>
+
+    <div class="divider">Or keep everything running smoothly every month</div>
+
+    <!-- CATEGORY 3: KEEP IT RUNNING -->
+    <div>
+      <div class="cat-header">
+        <div class="cat-icon keep">🛡️</div>
+        <div>
+          <div class="cat-title">Keep It Running</div>
+          <div class="cat-desc">Monthly plans for ongoing peace of mind — for you and your family. Cancel anytime.</div>
+        </div>
+      </div>
+      <div class="plans-grid">
+
+        <div class="plan">
+          <h3>TechAid Care Plan</h3>
+          <div class="plan-price">$49 <span>/ month</span></div>
+          <div class="plan-desc">Perfect for seniors who want a trusted tech person on call.</div>
+          <ul class="plan-features">
+            <li>Monthly check-in phone call</li>
+            <li>Unlimited quick questions by text</li>
+            <li>Priority scheduling</li>
+            <li>Monthly scam alert updates</li>
+            <li>10% off all in-home visits</li>
+          </ul>
+        </div>
+
+        <div class="plan featured">
+          <div class="plan-badge">⭐ Best Value</div>
+          <h3>TechAid Complete Plan</h3>
+          <div class="plan-price">$79 <span>/ month</span></div>
+          <div class="plan-desc">Full coverage with automatic data backup &amp; family peace of mind.</div>
+          <ul class="plan-features">
+            <li>Everything in the Care Plan</li>
+            <li>Automatic backup of photos, docs &amp; contacts</li>
+            <li>Quarterly remote device health check</li>
+            <li>Monthly backup report sent to family</li>
+            <li>Family liaison — loved ones can contact us directly</li>
+            <li>20% off all in-home visits</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      <p>Ready to get started? Call or text us:</p>
+      <div class="footer-phone">(443) 256-6630</div>
+      <p style="margin-top:3px;">Mon – Sat, 9am to 6pm</p>
+    </div>
+    <div class="footer-right">
+      <p><strong>Email:</strong> richard@techaidseniors.com</p>
+      <p style="margin-top:5px;"><strong>Website:</strong></p>
+      <div class="footer-web">techaidseniors.com</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
