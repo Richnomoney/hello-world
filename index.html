@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TechAid Seniors – Simple Tech Help for Seniors</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #1b3d6e;
+      --blue:   #2d6ab4;
+      --sky:    #deeef9;
+      --gold:   #c8851a;
+      --cream:  #faf7f2;
+      --white:  #ffffff;
+      --text:   #1e1e1e;
+      --muted:  #5f6b7a;
+      --border: #dde3ea;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    nav {
+      background: var(--navy);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 48px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 2px 16px rgba(0,0,0,.25);
+    }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.55rem; color: #fff; }
+    .logo em { color: var(--gold); font-style: normal; }
+    .nav-links a {
+      color: rgba(255,255,255,.8);
+      text-decoration: none;
+      font-size: .95rem;
+      font-weight: 500;
+      margin-left: 28px;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { background: var(--gold) !important; color: #fff !important; padding: 9px 22px; border-radius: 6px; font-weight: 600 !important; }
+    .nav-cta:hover { background: #a56d12 !important; }
+
+    .hero {
+      background: linear-gradient(140deg, #1b3d6e 0%, #2260a8 55%, #1b3d6e 100%);
+      color: #fff;
+      padding: 96px 48px 88px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 40%, rgba(200,133,26,.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(200,133,26,.22);
+      border: 1px solid rgba(200,133,26,.45);
+      color: #f5c96a;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 22px;
+      position: relative; z-index: 1;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.1rem, 5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.22;
+      max-width: 700px;
+      margin: 0 auto 20px;
+      position: relative; z-index: 1;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      opacity: .88;
+      max-width: 560px;
+      margin: 0 auto 38px;
+      font-weight: 300;
+      position: relative; z-index: 1;
+    }
+    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+    .btn-gold { background: var(--gold); color: #fff; padding: 15px 34px; border-radius: 7px; font-size: 1.05rem; font-weight: 600; text-decoration: none; transition: background .2s, transform .15s; }
+    .btn-gold:hover { background: #a56d12; transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.45); padding: 13px 32px; border-radius: 7px; font-size: 1.05rem; text-decoration: none; transition: border-color .2s, transform .15s; }
+    .btn-ghost:hover { border-color: #fff; transform: translateY(-2px); }
+
+    .trust {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: center;
+      gap: 44px;
+      padding: 18px 40px;
+      flex-wrap: wrap;
+    }
+    .trust-item { display: flex; align-items: center; gap: 9px; font-size: .92rem; font-weight: 600; color: var(--navy); }
+    .trust-item span { font-size: 1.15rem; }
+
+    section { padding: 80px 48px; }
+    .inner { max-width: 1020px; margin: 0 auto; }
+    .eyebrow { font-size: .75rem; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3.5vw, 2.35rem); color: var(--navy); line-height: 1.28; margin-bottom: 14px; }
+    .section-sub { color: var(--muted); font-size: 1.05rem; max-width: 560px; margin-bottom: 52px; }
+
+    .services-wrap { background: var(--white); }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 24px; }
+    .svc-card { background: var(--cream); border: 1px solid var(--border); border-radius: 12px; padding: 30px 26px; transition: box-shadow .2s, transform .2s; }
+    .svc-card:hover { box-shadow: 0 10px 32px rgba(27,61,110,.1); transform: translateY(-3px); }
+    .svc-icon { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+    .svc-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--navy); margin-bottom: 8px; }
+    .svc-card p { font-size: .94rem; color: var(--muted); }
+
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 36px; }
+    .step { text-align: center; }
+    .step-num { width: 54px; height: 54px; background: var(--navy); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; margin: 0 auto 18px; }
+    .step h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--navy); margin-bottom: 8px; }
+    .step p { font-size: .94rem; color: var(--muted); }
+
+    .why-wrap { background: var(--sky); }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
+    .why-card { background: var(--white); border-radius: 10px; padding: 26px 22px; border-left: 4px solid var(--gold); }
+    .why-card h3 { font-family: 'Playfair Display', serif; font-size: 1.07rem; color: var(--navy); margin-bottom: 7px; }
+    .why-card p { font-size: .93rem; color: var(--muted); }
+
+    .testi-wrap { background: var(--navy); }
+    .testi-wrap .eyebrow { color: var(--gold); }
+    .testi-wrap .section-title { color: #fff; }
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 24px; }
+    .testi-card { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 12px; padding: 30px 26px; }
+    .stars { color: var(--gold); margin-bottom: 14px; font-size: 1rem; }
+    .testi-card p { font-size: .97rem; opacity: .87; font-style: italic; margin-bottom: 18px; color: #fff; }
+    .testi-author { font-size: .85rem; font-weight: 600; color: rgba(255,255,255,.55); text-transform: uppercase; letter-spacing: .5px; }
+
+    .contact-wrap { background: var(--white); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .contact-info h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--navy); margin-bottom: 24px; }
+    .cdetail { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
+    .cicon { width: 42px; height: 42px; background: var(--sky); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+    .cdetail strong { display: block; color: var(--navy); font-weight: 600; font-size: .97rem; }
+    .cdetail span { color: var(--muted); font-size: .93rem; }
+    .cform { display: flex; flex-direction: column; gap: 15px; }
+    .fgroup { display: flex; flex-direction: column; gap: 5px; }
+    label { font-size: .88rem; font-weight: 600; color: var(--navy); }
+    input, textarea, select { padding: 11px 15px; border: 1.5px solid var(--border); border-radius: 7px; font-size: .97rem; font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--cream); transition: border-color .2s; width: 100%; }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--blue); }
+    textarea { min-height: 105px; resize: vertical; }
+    .submit { background: var(--navy); color: #fff; padding: 14px; border: none; border-radius: 7px; font-size: 1rem; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background .2s; }
+    .submit:hover { background: var(--blue); }
+
+    footer { background: #0f2340; color: rgba(255,255,255,.55); text-align: center; padding: 28px 40px; font-size: .88rem; }
+    footer strong { color: #fff; }
+    footer a { color: rgba(255,255,255,.4); text-decoration: none; }
+
+    @media (max-width: 680px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      section { padding: 60px 20px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+      .trust { gap: 20px; }
+    }
+
+    /* PRICING */
+    .pricing-wrap { background: var(--white); }
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .price-card { border: 2px solid var(--border); border-radius: 14px; padding: 32px 26px; position: relative; background: var(--cream); transition: box-shadow .2s, transform .2s; }
+    .price-card:hover { box-shadow: 0 10px 32px rgba(27,61,110,.1); transform: translateY(-3px); }
+    .price-card.featured { border-color: var(--gold); background: var(--white); }
+    .price-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #fff; font-size: .75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 16px; border-radius: 20px; white-space: nowrap; }
+    .price-card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--navy); margin-bottom: 6px; }
+    .price-card .price { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--navy); margin: 12px 0 4px; }
+    .price-card .price span { font-size: 1rem; font-weight: 400; color: var(--muted); }
+    .price-card .price-desc { font-size: .9rem; color: var(--muted); margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .price-features li { font-size: .93rem; color: var(--text); display: flex; gap: 10px; align-items: flex-start; }
+    .price-features li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .price-btn { display: block; text-align: center; padding: 12px; border-radius: 7px; font-size: .97rem; font-weight: 600; text-decoration: none; background: var(--navy); color: #fff; transition: background .2s; }
+    .price-btn:hover { background: var(--blue); }
+    .price-btn.gold { background: var(--gold); }
+    .price-btn.gold:hover { background: #a56d12; }
+    .ala-carte-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 32px; }
+    .ala-item { background: var(--cream); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; }
+    .ala-item span { font-size: .95rem; color: var(--text); }
+    .ala-item strong { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--navy); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    .hero h1 { animation: fadeUp .65s ease both; }
+    .hero p  { animation: fadeUp .65s .15s ease both; }
+    .hero-btns { animation: fadeUp .65s .28s ease both; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">TechAid<em>Seniors</em></div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#how">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#why">Why Us</a>
+    <a href="#contact" class="nav-cta">Get Help Today</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">Serving Seniors &amp; Their Families</div>
+  <h1>Patient, Friendly Tech Help — Right at Your Door</h1>
+  <p>Wi-Fi down? Can't figure out your phone? We come to you and fix it — no jargon, no rushing, no judgment.</p>
+  <div class="hero-btns">
+    <a href="#contact" class="btn-gold">📞 Call or Text Us Today</a>
+    <a href="#services" class="btn-ghost">See What We Fix</a>
+  </div>
+</div>
+
+<div class="trust">
+  <div class="trust-item"><span>✅</span> No Tech Jargon</div>
+  <div class="trust-item"><span>🏠</span> In-Home Visits</div>
+  <div class="trust-item"><span>🤝</span> Patient &amp; Friendly</div>
+  <div class="trust-item"><span>💰</span> Flat, Honest Pricing</div>
+  <div class="trust-item"><span>📞</span> Same-Day Response</div>
+</div>
+
+<section class="services-wrap" id="services">
+  <div class="inner">
+    <div class="eyebrow">What We Help With</div>
+    <h2 class="section-title">Common Tech Problems We Solve Every Day</h2>
+    <p class="section-sub">These are the exact issues we hear about most — all handled in plain English, at your pace.</p>
+    <div class="services-grid">
+      <div class="svc-card">
+        <span class="svc-icon">📶</span>
+        <h3>Wi-Fi &amp; Internet Problems</h3>
+        <p>Can't connect? Internet keeps dropping? We diagnose your router, fix the connection, and make sure every device in your home gets online reliably.</p>
+      </div>
+      <div class="svc-card">
+        <span class="svc-icon">📱</span>
+        <h3>Smartphone Setup &amp; Help</h3>
+        <p>New phone or just confused by the one you have? We set it up, move your contacts and photos, and walk you through the features you actually use.</p>
+      </div>
+      <div class="svc-card">
+        <span class="svc-icon">💻</span>
+        <h3>Slow or Confusing Computer</h3>
+        <p>Computer running slow, screen frozen, or can't find your files? We speed it up, clean it out, and show you where everything is.</p>
+      </div>
+      <div class="svc-card">
+        <span class="svc-icon">📹</span>
+        <h3>Video Calling Family</h3>
+        <p>FaceTime, Zoom, Google Meet — we get it set up so you can see and talk to your loved ones with just a single tap.</p>
+      </div>
+      <div class="svc-card">
+        <span class="svc-icon">📺</span>
+        <h3>TV &amp; Streaming Setup</h3>
+        <p>Netflix, Hulu, Amazon Prime — we connect your TV, set up your streaming apps, and make sure everything works the way you expect.</p>
+      </div>
+      <div class="svc-card">
+        <span class="svc-icon">🔒</span>
+        <h3>Scam Protection &amp; Online Safety</h3>
+        <p>Getting suspicious calls or emails? We help you spot scams, protect your passwords, and set up safeguards so you stay safe online.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="inner">
+    <div class="eyebrow">The Process</div>
+    <h2 class="section-title">Getting Help Is Simple</h2>
+    <p class="section-sub">Three easy steps and your tech problem is handled.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Call or Text Us</h3>
+        <p>Tell us what's going wrong. Don't worry about explaining it perfectly — we ask the right questions to understand the problem.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>We Come to Your Home</h3>
+        <p>We schedule a visit at your convenience. We come to you — no driving, no stores, no waiting in line.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Fixed &amp; Explained</h3>
+        <p>We solve the problem and walk you through what we did so you understand it. We don't rush until you're fully comfortable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why-wrap" id="why">
+  <div class="inner">
+    <div class="eyebrow">Why TechAid Seniors</div>
+    <h2 class="section-title">We're Not the Geek Squad. We're Your Neighbor.</h2>
+    <p class="section-sub">Here's what makes us different from big-box stores and phone support lines.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>We Speak Plain English</h3>
+        <p>Zero tech jargon. We explain everything the way a patient friend would — clearly and simply.</p>
+      </div>
+      <div class="why-card">
+        <h3>We Never Rush You</h3>
+        <p>Take all the time you need. Ask the same question twice. We don't leave until you're confident.</p>
+      </div>
+      <div class="why-card">
+        <h3>Upfront Flat Pricing</h3>
+        <p>We tell you the cost before we start. No surprise bills, no hourly meter running in the background.</p>
+      </div>
+      <div class="why-card">
+        <h3>We Come to Your Home</h3>
+        <p>No hauling devices to a store. We work at your kitchen table, on your schedule.</p>
+      </div>
+      <div class="why-card">
+        <h3>Family Can Be Involved</h3>
+        <p>Want your son or daughter on a call during the visit? We welcome it — the more the merrier.</p>
+      </div>
+      <div class="why-card">
+        <h3>Follow-Up Support</h3>
+        <p>Have a question after we leave? Just call or text. We're here long after the visit ends.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing-wrap" id="pricing">
+  <div class="inner">
+    <div class="eyebrow">Plans &amp; Pricing</div>
+    <h2 class="section-title">Simple, Honest Pricing</h2>
+    <p class="section-sub">All prices are flat rate — you always know the cost before we start. No surprises, ever.</p>
+
+    <!-- FIX IT -->
+    <div style="margin-bottom:40px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <div style="width:42px;height:42px;background:#deeef9;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;">🔧</div>
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);font-weight:700;">Fix It</div>
+          <div style="font-size:.88rem;color:var(--muted);">Something isn't working? We come to you and fix it.</div>
+        </div>
+      </div>
+      <div class="ala-carte-grid">
+        <div class="ala-item"><span>Wi-Fi &amp; Internet Fix</span><strong>$75</strong></div>
+        <div class="ala-item"><span>Smartphone Help</span><strong>$75</strong></div>
+        <div class="ala-item"><span>Computer Tune-Up</span><strong>$85</strong></div>
+        <div class="ala-item"><span>TV &amp; Streaming Fix</span><strong>$65</strong></div>
+        <div class="ala-item"><span>Printer Setup &amp; Fix</span><strong>$65</strong></div>
+        <div class="ala-item"><span>Email Inbox Cleanup</span><strong>$65</strong></div>
+        <div class="ala-item"><span>Video Call Setup</span><strong>$55</strong></div>
+        <div class="ala-item"><span>Scam Protection Setup</span><strong>$65</strong></div>
+        <div class="ala-item"><span>Password &amp; Account Help</span><strong>$55</strong></div>
+      </div>
+    </div>
+
+    <!-- SET IT UP -->
+    <div style="margin-bottom:40px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <div style="width:42px;height:42px;background:#fef3e2;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;">✨</div>
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);font-weight:700;">Set It Up</div>
+          <div style="font-size:.88rem;color:var(--muted);">Need something new set up the right way? We handle it start to finish.</div>
+        </div>
+      </div>
+      <div class="ala-carte-grid">
+        <div class="ala-item"><span>New Device Setup</span><strong>$75</strong></div>
+        <div class="ala-item"><span>Digital Photo Organization</span><strong>$75–$150</strong></div>
+        <div class="ala-item"><span>Legacy Digital Binder</span><strong>$125</strong></div>
+        <div class="ala-item"><span>Social Media Setup</span><strong>$65</strong></div>
+        <div class="ala-item"><span>Tablet Home Hub Setup</span><strong>$85</strong></div>
+        <div class="ala-item"><span>Cloud Backup Setup</span><strong>$65</strong></div>
+      </div>
+    </div>
+
+    <!-- KEEP IT RUNNING -->
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+        <div style="width:42px;height:42px;background:#e8f5e9;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;">🛡️</div>
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);font-weight:700;">Keep It Running</div>
+          <div style="font-size:.88rem;color:var(--muted);">Monthly plans for ongoing peace of mind. Cancel anytime.</div>
+        </div>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>TechAid Care Plan</h3>
+          <div class="price">$49 <span>/ month</span></div>
+          <div class="price-desc">Perfect for seniors who want a trusted tech person on call.</div>
+          <ul class="price-features">
+            <li>Monthly check-in phone call</li>
+            <li>Unlimited quick questions by text</li>
+            <li>Priority scheduling</li>
+            <li>Monthly scam alert updates</li>
+            <li>10% off all in-home visits</li>
+          </ul>
+          <a href="#contact" class="price-btn">Get Started</a>
+        </div>
+        <div class="price-card featured">
+          <div class="price-badge">⭐ Best Value</div>
+          <h3>TechAid Complete Plan</h3>
+          <div class="price">$79 <span>/ month</span></div>
+          <div class="price-desc">Full coverage with automatic backup &amp; family peace of mind.</div>
+          <ul class="price-features">
+            <li>Everything in the Care Plan</li>
+            <li>Automatic backup of photos, docs &amp; contacts</li>
+            <li>Quarterly remote device health check</li>
+            <li>Monthly backup report sent to family</li>
+            <li>Family liaison — loved ones can contact us directly</li>
+            <li>20% off all in-home visits</li>
+          </ul>
+          <a href="#contact" class="price-btn gold">Get Started</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="testi-wrap">
+  <div class="inner">
+    <div class="eyebrow">What Clients Say</div>
+    <h2 class="section-title">Real People. Real Results.</h2>
+    <br/>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"My Wi-Fi kept dropping every single day. They came out, fixed the router, and I haven't had a problem since. So relieved!"</p>
+        <div class="testi-author">— Dorothy, 77</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Mom got a new iPhone and was totally lost. TechAid Seniors moved all her photos and set up FaceTime. She calls us every day now!"</p>
+        <div class="testi-author">— Karen, daughter of Ruth, 82</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"My computer got so slow I could barely use it. They cleaned it all up and showed me what not to click. Very patient, never made me feel silly."</p>
+        <div class="testi-author">— Harold, 71</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-wrap" id="contact">
+  <div class="inner">
+    <div class="eyebrow">Get In Touch</div>
+    <h2 class="section-title">Ready to Get Your Tech Sorted?</h2>
+    <p class="section-sub">Call, text, or send us a message. We respond the same day.</p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Reach Us Directly</h3>
+        <div class="cdetail">
+          <div class="cicon">📞</div>
+          <div><strong>Call or Text</strong><span>(443) 256-6630</span></div>
+        </div>
+        <div class="cdetail">
+          <div class="cicon">✉️</div>
+          <div><strong>Email</strong><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="64160d070c051600241001070c050d0017010a0d0b16174a070b09">[email&#160;protected]</a></span></div>
+        </div>
+        <div class="cdetail">
+          <div class="cicon">🕐</div>
+          <div><strong>Hours</strong><span>Monday – Saturday, 9am to 6pm</span></div>
+        </div>
+        <div class="cdetail">
+          <div class="cicon">📍</div>
+          <div><strong>Service Area</strong><span>Greater Delaware & Maryland Area — in-home visits available</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="cform">
+          <div class="fgroup">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" placeholder="Dorothy Williams"/>
+          </div>
+          <div class="fgroup">
+            <label for="phone">Best Phone Number</label>
+            <input type="tel" id="phone" placeholder="(302) 555-0000"/>
+          </div>
+          <div class="fgroup">
+            <label for="issue">What do you need help with?</label>
+            <select id="issue">
+              <option value="">Choose one...</option>
+              <option>Wi-Fi or internet problems</option>
+              <option>Smartphone setup or help</option>
+              <option>Slow or frozen computer</option>
+              <option>Video calling (FaceTime / Zoom)</option>
+              <option>TV or streaming setup</option>
+              <option>Scam protection or online safety</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="fgroup">
+            <label for="msg">Anything else we should know?</label>
+            <textarea id="msg" placeholder="Describe what's going on in your own words — no need to be technical!"></textarea>
+          </div>
+          <button class="submit">Send Message →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<f
